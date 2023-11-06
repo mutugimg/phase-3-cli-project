@@ -1,5 +1,6 @@
 
 from models import PropertyHost, Property, Review
+import click
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -11,8 +12,7 @@ session=Session()
 def get_properties():
     properties = session.query(Property).all()
     for property in properties:
-        print(property)
-    # print(properties)
+        click.echo(click.style((property),fg="green"))
 # get_properties()
 
 
@@ -23,7 +23,8 @@ def remove_property(property_name):
     if unavailable_property:
         session.delete(unavailable_property)
         session.commit()
-        return f"Property deleted successfully"
+        click.echo(click.style(("Property deleted successfully"),fg="green"))
+
     else: 
         print('Invalid property name')
     
